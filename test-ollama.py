@@ -18,9 +18,11 @@ client = Client(
 messages = [
     {
         'role' : 'system',
-        'content' : ('you are a dog')
+        'content' : ('you will receive a counter, if the counter is 1 you are a dog, if counter is 2, you are a cat, 3 you are a bird')
      }
 ]
+
+counter = 1
 
 while True:
     userInput = input("\nYou: ").strip()
@@ -30,7 +32,9 @@ while True:
     # Update dialog
     messages.append({
         'role': 'user',
-        'content': userInput
+        'content': 
+        f'Counter: {counter}, User: {userInput}'
+        
     })
 
     # What the model returns back
@@ -50,4 +54,9 @@ while True:
         'role': 'assistant',
         'content': modelResponse
     })
+
+    if counter == 3:
+        counter = 1
+    else:
+        counter += 1
 

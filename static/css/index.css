@@ -1,0 +1,68 @@
+
+
+.prompt-bar-container
+{
+    display: flex;
+    position: fixed;
+    justify-content: start;
+    align-items: center;
+    gap: 15px;
+    bottom: 30px;
+    left: 50%;
+    translate: -50%;
+    margin: 0 auto;
+    background-color: aqua;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    width: fit-content;
+    height: auto;
+
+   
+    
+}
+
+.prompt-bar {
+
+    width: 500px;
+    font-size: 16px;
+    line-height: 20px;  /* each line height */
+    min-height: 20px;  /* minimum 1 line */
+    max-height: 176px; /* at most 11 lines */
+    overflow-y: auto; /* show a vertical scrollbar when needed */
+    resize: none; /* disable the little drag thing  */
+    background: transparent; 
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+
+   
+}
+
+.upload-btn
+{
+    
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 25px;
+    display: flex;
+   
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.upload-btn:hover
+{
+    opacity: .8;
+    background-color: rgba(0, 0, 0, 0.26);
+}
+
+.upload-btn-icon
+{
+    height: 18px;
+    display: block;
+}
