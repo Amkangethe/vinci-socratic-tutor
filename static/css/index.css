@@ -1,68 +1,121 @@
-
+body
+{
+    margin: 0;
+}
 
 .prompt-bar-container
 {
     display: flex;
-    position: fixed;
-    justify-content: start;
     align-items: center;
-    gap: 15px;
+    justify-content: space-between;
+    flex-direction: column;
+    position: fixed;
     bottom: 30px;
     left: 50%;
-    translate: -50%;
-    margin: 0 auto;
-    background-color: aqua;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 25px;
+    transform: translateX(-50%);
     width: fit-content;
     height: auto;
-
-   
-    
-}
-
-.prompt-bar {
-
-    width: 500px;
-    font-size: 16px;
-    line-height: 20px;  /* each line height */
-    min-height: 20px;  /* minimum 1 line */
-    max-height: 176px; /* at most 11 lines */
-    overflow-y: auto; /* show a vertical scrollbar when needed */
-    resize: none; /* disable the little drag thing  */
-    background: transparent; 
-    border: none;
-    outline: none;
-    box-sizing: border-box;
-
-   
-}
-
-.upload-btn
-{
-    
-    width: 40px;
-    height: 40px;
-    border: none;
+    padding: 0 10px;
     border-radius: 25px;
+    border: 1px solid rgb(197, 197, 197);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.322);
+    cursor: text;
+    column-gap: 10px;
+}
+
+.prompt-added-file
+{
     display: flex;
-   
+    margin-right: auto;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-top: 20px;
+    width: fit-content;
+    cursor: pointer;
+
+}
+
+.prompt-added-file:hover
+{
+    background-color: rgba(0, 47, 255, 0.13);
+
+}
+
+.added-file-icon
+{
+    height: 40px;
+}
+
+.file-name-text, .document-text
+{
+    margin: 0;
+    
+}
+
+.file-name-text
+{
+    margin-bottom: 5px;
+}
+
+
+.prompt-bar-main
+{
+    display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    width: 750px;
+}
+
+.prompt-file-icon
+{
+    height: 20px;
+}
+
+.prompt-send-icon
+{
+    height: 25px;
+    
+}
+
+.prompt-file-button, .prompt-send-button
+{
+    width: 40px;
+    height:40px;
+    background-color: transparent;
+    border:none;
     padding: 0;
-    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
 }
 
-.upload-btn:hover
+
+
+.prompt-file-button:hover, .prompt-send-button:hover
 {
-    opacity: .8;
-    background-color: rgba(0, 0, 0, 0.26);
+    background-color: rgba(250, 250, 250);
+    border-radius: 20px;
+
 }
 
-.upload-btn-icon
+.prompt-textarea
 {
-    height: 18px;
-    display: block;
+
+    height: auto;
+    width: 100%;
+    line-height: 25px;
+    max-height: 300px;
+    font-size: 20px;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    padding-top: 20px;
+    box-sizing: border-box;
+    resize: none; /* disable the little drag thing  */
+    overflow-y: auto; /* show a vertical scrollbar when needed */
+    outline: none;
+    margin-left: 10px;
 }

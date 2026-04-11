@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify
+import test_ollama
 
 app = Flask(__name__, template_folder='templates')
 
@@ -13,12 +14,13 @@ def analyze():
     prompt = request.form.get("prompt")
     uploaded_file = request.files.get("file")
 
-    filename = uploaded_file.filename if uploaded_file else None
+    file = test_ollama.main()
+    
 
     return jsonify({
         "status": "success",
         "prompt": prompt,
-        "filename": filename
+        'this' : file
     })
 
 

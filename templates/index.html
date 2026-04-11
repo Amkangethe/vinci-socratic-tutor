@@ -5,19 +5,43 @@
         <link rel="stylesheet" href="../static/css/index.css">
     </head>
     <body>
-        <p id="welcome"></p>
 
+
+            <p id="welcome"></p>
+
+            <div class="prompt-bar-container">
+                <div class="prompt-added-file" id="promptAddedFile">
+                    
+                </div>
+                <div class="prompt-bar-main">
+                    <input type="file" id="fileInput" accept=".py" hidden> 
+                    <label for="fileInput" class="prompt-file-button">
+                        <img class="prompt-file-icon" src="../static/img/plus.png">
+                    </label>
+                    <textarea class="prompt-textarea" id="promptTextArea" placeholder="Ask about your code"></textarea>
+                    <button class="prompt-send-button" id="sendButton">
+                    <img class="prompt-send-icon" src="../static/img/send.png">
+                    </button>
+                </div>
+                
+            </div>
+
+   
+        <!-- 
         <div class="prompt-bar-container">
-            <input type="file" id="fileInput" accept=".py,.txt" hidden> <!-- File Upload Mechanic-->
-            <label for="fileInput" class="upload-btn">  <!-- Actual visible upload icon -->
+            <input type="file" id="fileInput" accept=".py,.txt" hidden> 
+            <label for="fileInput" class="upload-btn">  
                 <img class="upload-btn-icon" src="../static/img/plus.png" alt="Upload file">
             </label>
 
             <textarea class="prompt-bar" id="promptBar" type="text" placeholder="Ask anything"></textarea>
-            <button id="sendBtn" type="button">Send</button>
+            <button id="sendBtn" type="button">Send</button>region 
+           
         </div>
+         -->
 
         <script src="../static/scripts/index.js"></script>
+   
 
 
     </body>
