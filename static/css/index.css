@@ -65,7 +65,7 @@ body
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    width: 750px;
+    width: 1000px;
 }
 
 .prompt-file-icon
@@ -118,4 +118,156 @@ body
     overflow-y: auto; /* show a vertical scrollbar when needed */
     outline: none;
     margin-left: 10px;
+}
+
+
+.challenges
+{
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    align-items: center;
+    margin-top: 100px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+
+.challenge-title
+{
+    
+    font-size: 30px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.challenge-subtitle
+{
+    color: grey;
+    font-size: 20px;
+}
+
+.challenge-container
+{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 50px;
+
+}
+
+.challenge-card
+{
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100px;
+    max-width: 400px;
+    transition: box-shadow .15s;
+    
+}
+
+.challenge-card:hover
+{
+    box-shadow: 0 2px 8px  rgba(0, 0, 0, 0.308);
+}
+
+.card-top
+{
+    display: flex;
+    align-items: start;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    column-gap: 30px;
+}
+.challenge-img
+{
+    height:90px;
+}
+
+.challenge-name
+{
+    margin: 0;
+    font-weight: 700;
+    font-size: 25px;
+
+}
+
+.challenge-button
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(55, 118, 171);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 30px;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.challenge-button:hover{
+    opacity: .4;
+}
+
+.right-arrow-icon
+{
+    height: 20px;
+    filter:invert(1)
+}
+
+
+
+.chat-container
+{
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    width: 100%;
+    height: 780px;
+    padding-top:30px;
+    
+        
+
+}
+
+.dialogue-card
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    width: 1000px;
+    background-color: white;
+}
+
+.user-prompt
+{
+    margin-left: auto;
+    background-color: #007AFF;
+    color: white;
+    
+}
+
+
+
+.user-prompt, .ai-response
+{
+    padding: 20px 20px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    border-radius: 39px;
+    max-width: 400px;
+
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+.ai-response
+{
+    margin-right: auto;
+    background-color: #b8b8b8;
+    color: white;
 }

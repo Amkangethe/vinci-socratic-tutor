@@ -1,9 +1,9 @@
 import os
 from ollama import Client
 
-# API Key set in terminal
-api_key = os.environ.get('OLLAMA_API_KEY')
+# API Key set in terminal set OLLAMA_API_KEY='7e1bf79e4349446f98ed5be3d7aba950.5i_aOwIUjf9J1l8QeDoPLgmL'
 
+api_key = '7e1bf79e4349446f98ed5be3d7aba950.5i_aOwIUjf9J1l8QeDoPLgmL'
 # Check for API
 if not api_key:
     raise ValueError("OLLAMA_API_KEY is not set in this terminal session.")
@@ -66,5 +66,8 @@ def main():
         else:
             counter += 1
 
+
+if __name__ == '__main__':
+    main()
 
 
