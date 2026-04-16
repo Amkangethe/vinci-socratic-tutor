@@ -13,10 +13,7 @@ app.secret_key = 'vinci-cs6460-secret-key'
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 SESSIONS_LOG = os.path.join(BASE_DIR, 'sessions_log.json')
 
-bot = OllamaService(
-    model="gpt-oss:20b",
-    host="https://ollama.com"
-)
+bot = OllamaService(model="gpt-oss:20b")
 
 CHALLENGE_TESTS = {
     'count_vowels': 'tests/test_count_vowels.py',
