@@ -1,0 +1,13 @@
+[
+  {
+    "username": "John Stewart",
+    "challenge": "dedupe",
+    "pre_check_answer": "just want to do good",
+    "hints_received": 0,
+    "tests_failed": 0,
+    "time_stage1_seconds": 2,
+    "time_stage2_seconds": 0,
+    "time_stage3_seconds": 11,
+    "completed_at": "2026-04-16T12:19:32.892489"
+  }
+]

@@ -11,69 +11,76 @@
 
         <nav class="top-nav">
             <span class="nav-brand">Vinci</span>
-            <a class="nav-portfolio-btn" href="https://www.allankangethe.com" target="_blank" rel="noopener">Allan Kangethe ↗</a>
+            <div style="display:flex; align-items:center; gap:12px;">
+                <span class="nav-username">👋 {{ username }}</span>
+                <form method="POST" action="/logout" style="margin:0;">
+                    <button class="nav-logout-btn" type="submit">Sign out</button>
+                </form>
+                <a class="nav-portfolio-btn" href="https://www.allankangethe.com" target="_blank" rel="noopener">Allan Kangethe ↗</a>
+            </div>
         </nav>
 
-            <div class="challenges" id="challenges">
-                <p class="challenge-title">Pick a challenge</p>
-                <p class="challenge-subtitle">Choose a coding challenge to practice your skills.</p>
+        <!-- Toast container -->
+        <div id="toast-container"></div>
 
-                <div class="challenge-container" id="challenge-container">
-                </div>
-            </div> 
-
-            <div class="chat-header" id="chat-header">
-                <div class="stage-track">
-                    <div class="stage-pill active" id="stage-pill-1">1 · Socratic</div>
-                    <div class="stage-arrow">→</div>
-                    <div class="stage-pill" id="stage-pill-2">2 · Code Review</div>
-                    <div class="stage-arrow">→</div>
-                    <div class="stage-pill" id="stage-pill-3">3 · Solution</div>
-                </div>
-                <button class="next-stage-btn" id="next-stage-btn">Move to Code Review →</button>
+        <!-- Pre-challenge knowledge check modal -->
+        <div class="modal-overlay" id="pre-check-modal" style="display:none;">
+            <div class="modal-card">
+                <p class="modal-title">Quick Check ✏️</p>
+                <p class="modal-question" id="pre-check-question"></p>
+                <textarea class="modal-textarea" id="pre-check-answer" placeholder="Write your thoughts here..."></textarea>
+                <button class="modal-submit-btn" id="pre-check-submit">Start Challenge →</button>
             </div>
-
-            <div class="chat-container" id="chat-container">
-
-            </div>
-
-            <div class="prompt-bar-container" id="prompt-bar-container">
-                <div class="prompt-added-file" id="promptAddedFile">
-                    
-                </div>
-                <div class="prompt-bar-main">
-                    <input type="file" id="fileInput" accept=".py" hidden> 
-                    <label for="fileInput" class="prompt-file-button">
-                        <img class="prompt-file-icon" src="../static/img/plus.png">
-                    </label>
-                    <textarea class="prompt-textarea" id="promptTextArea" placeholder="Ask about your code"></textarea>
-                    <button class="prompt-send-button" id="sendButton">
-                        <img class="prompt-send-icon" src="../static/img/send.png">
-                    </button>
-
-            
-                </div>
-                
-            </div>
-
-   
-        <!-- 
-        <div class="prompt-bar-container">
-            <input type="file" id="fileInput" accept=".py,.txt" hidden> 
-            <label for="fileInput" class="upload-btn">  
-                <img class="upload-btn-icon" src="../static/img/plus.png" alt="Upload file">
-            </label>
-
-            <textarea class="prompt-bar" id="promptBar" type="text" placeholder="Ask anything"></textarea>
-            <button id="sendBtn" type="button">Send</button>region 
-           
         </div>
-         -->
+
+        <div class="challenges" id="challenges">
+            <p class="challenge-title">Pick a challenge</p>
+            <p class="challenge-subtitle">Choose a coding challenge to practice your skills.</p>
+            <div class="challenge-container" id="challenge-container"></div>
+        </div>
+
+        <div class="chat-header" id="chat-header">
+            <div style="display:flex; align-items:center; gap:12px;">
+                <button class="back-btn" id="back-btn">← Back</button>
+                <span class="chat-challenge-name" id="chat-challenge-name"></span>
+            </div>
+            <div class="stage-track">
+                <div class="stage-pill active" id="stage-pill-1">1 · Socratic</div>
+                <div class="stage-arrow">→</div>
+                <div class="stage-pill" id="stage-pill-2">2 · Code Review</div>
+                <div class="stage-arrow">→</div>
+                <div class="stage-pill" id="stage-pill-3">3 · Solution</div>
+            </div>
+            <button class="next-stage-btn" id="next-stage-btn">Move to Code Review →</button>
+        </div>
+
+        <div class="session-summary" id="session-summary" style="display:none;">
+            <div class="summary-card">
+                <button class="summary-close-btn" id="summary-close-btn">✕</button>
+                <p class="summary-title">Session Complete 🎉</p>
+                <div class="summary-stats" id="summary-stats"></div>
+                <button class="summary-back-btn" id="summary-back-btn">Try Another Challenge →</button>
+            </div>
+        </div>
+
+        <div class="chat-container" id="chat-container"></div>
+
+        <div class="prompt-bar-container" id="prompt-bar-container">
+            <div class="prompt-added-file" id="promptAddedFile"></div>
+            <div class="prompt-bar-main">
+                <input type="file" id="fileInput" accept=".py" hidden>
+                <label for="fileInput" class="prompt-file-button">
+                    <img class="prompt-file-icon" src="../static/img/plus.png">
+                </label>
+                <textarea class="prompt-textarea" id="promptTextArea" placeholder="Ask about your code"></textarea>
+                <button class="prompt-send-button" id="sendButton">
+                    <img class="prompt-send-icon" src="../static/img/send.png">
+                </button>
+            </div>
+        </div>
 
         <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
         <script src="../static/scripts/index.js"></script>
-   
-
 
     </body>
 </html>

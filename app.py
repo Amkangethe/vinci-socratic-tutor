@@ -1,13 +1,17 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_from_directory, session, redirect, url_for
 from ollama_ai import OllamaService
 import subprocess
 import sys
 import os
 import tempfile
+import json
+from datetime import datetime
 
 app = Flask(__name__, template_folder='templates')
+app.secret_key = 'vinci-cs6460-secret-key'
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+SESSIONS_LOG = os.path.join(BASE_DIR, 'sessions_log.json')
 
 bot = OllamaService(
     model="gpt-oss:20b",
@@ -39,7 +43,6 @@ def run_tests(challenge, file_content):
 
     test_path = os.path.join(BASE_DIR, CHALLENGE_TESTS[challenge])
 
-    # Write to a temp directory so Flask's reloader doesn't restart mid-request
     with tempfile.TemporaryDirectory() as tmpdir:
         attempts_dir = os.path.join(tmpdir, 'student_attempts')
         os.makedirs(attempts_dir)
@@ -66,9 +69,50 @@ def run_tests(challenge, file_content):
             return f"Error running tests: {str(e)}"
 
 
-@app.route('/')
+def load_sessions():
+    if not os.path.exists(SESSIONS_LOG):
+        return []
+    with open(SESSIONS_LOG, 'r') as f:
+        return json.load(f)
+
+
+def save_session_entry(entry):
+    sessions = load_sessions()
+    sessions.append(entry)
+    with open(SESSIONS_LOG, 'w') as f:
+        json.dump(sessions, f, indent=2)
+
+
+@app.route('/', methods=['GET'])
 def index():
-    return render_template('index.html')
+    if 'username' not in session:
+        return redirect(url_for('login'))
+    return render_template('index.html', username=session['username'])
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        name = request.form.get('name', '').strip()
+        if name:
+            session['username'] = name
+            return redirect(url_for('index'))
+    return render_template('login.html')
+
+
+@app.route('/logout', methods=['POST'])
+def logout():
+    session.clear()
+    return redirect(url_for('login'))
+
+
+@app.route('/sample/<challenge>')
+def sample(challenge):
+    return send_from_directory(
+        os.path.join(BASE_DIR, 'static', 'samples'),
+        f'{challenge}_attempt.py',
+        as_attachment=True
+    )
 
 
 @app.route("/reset", methods=["POST"])
@@ -104,6 +148,24 @@ def analyze():
         "prompt": prompt,
         "feedback": feedback
     })
+
+
+@app.route("/log_session", methods=["POST"])
+def log_session():
+    data = request.get_json()
+    entry = {
+        "username": session.get('username', 'anonymous'),
+        "challenge": data.get("challenge"),
+        "pre_check_answer": data.get("pre_check_answer"),
+        "hints_received": data.get("hints_received"),
+        "tests_failed": data.get("tests_failed"),
+        "time_stage1_seconds": data.get("time_stage1_seconds"),
+        "time_stage2_seconds": data.get("time_stage2_seconds"),
+        "time_stage3_seconds": data.get("time_stage3_seconds"),
+        "completed_at": datetime.utcnow().isoformat()
+    }
+    save_session_entry(entry)
+    return jsonify({"status": "logged"})
 
 
 if __name__ == '__main__':

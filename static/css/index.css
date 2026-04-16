@@ -234,6 +234,33 @@ body
 
 }
 
+.card-actions
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+
+.sample-download-btn
+{
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    color: #555;
+    border: 1px solid #ddd;
+    padding: 5px 12px;
+    border-radius: 20px;
+    transition: background 0.15s, color 0.15s;
+    font-family: 'Inter', sans-serif;
+}
+
+.sample-download-btn:hover
+{
+    background: #f5f5f5;
+    color: #222;
+}
+
 .challenge-button
 {
     display: flex;
@@ -441,3 +468,293 @@ body
     text-overflow: ellipsis;
     max-width: 200px;
 }
+
+/* Concept tags */
+.concept-tags
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.concept-tag
+{
+    font-size: 11px;
+    font-weight: 500;
+    background: #f0f4ff;
+    color: #3b6fd4;
+    border: 1px solid #c7d7f7;
+    padding: 2px 9px;
+    border-radius: 20px;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Completed challenge card */
+.challenge-done
+{
+    opacity: 0.75;
+    background-color: #f9fdf9;
+    border-color: #b8e0c0;
+}
+
+.done-badge
+{
+    font-size: 12px;
+    font-weight: 600;
+    color: #2e9e55;
+    background: #e6f7ec;
+    border-radius: 20px;
+    padding: 2px 9px;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+/* Back button */
+.back-btn
+{
+    background: none;
+    border: 1px solid #ddd;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    color: #444;
+    transition: background 0.15s;
+}
+
+.back-btn:hover { background: #f5f5f5; }
+
+/* Challenge name in chat header */
+.chat-challenge-name
+{
+    font-size: 14px;
+    font-weight: 600;
+    color: #222;
+    text-transform: capitalize;
+}
+
+/* Session summary overlay */
+.session-summary
+{
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+}
+
+.summary-card
+{
+    position: relative;
+    background: white;
+    border-radius: 20px;
+    padding: 40px 48px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    max-width: 420px;
+    width: 90%;
+}
+
+.summary-close-btn
+{
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #aaa;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+}
+
+.summary-close-btn:hover { color: #333; }
+
+.summary-title
+{
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 28px 0;
+}
+
+.summary-stats
+{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 32px;
+}
+
+.summary-stat
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.stat-number
+{
+    font-size: 32px;
+    font-weight: 700;
+    color: #007AFF;
+}
+
+.stat-label
+{
+    font-size: 12px;
+    color: #888;
+    font-weight: 500;
+}
+
+.summary-back-btn
+{
+    background: #007AFF;
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 25px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: opacity 0.15s;
+}
+
+.summary-back-btn:hover { opacity: 0.8; }
+
+/* Nav username + logout */
+.nav-username
+{
+    font-size: 14px;
+    font-weight: 500;
+    color: #444;
+}
+
+.nav-logout-btn
+{
+    background: none;
+    border: 1px solid #ddd;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    color: #666;
+    transition: background 0.15s;
+}
+
+.nav-logout-btn:hover { background: #f5f5f5; }
+
+/* Toast notifications */
+#toast-container
+{
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 500;
+    pointer-events: none;
+}
+
+.toast
+{
+    background: #1c1c1e;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.25s, transform 0.25s;
+    white-space: nowrap;
+}
+
+.toast.toast-show
+{
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Pre-check modal */
+.modal-overlay
+{
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+}
+
+.modal-card
+{
+    background: white;
+    border-radius: 20px;
+    padding: 40px 44px;
+    max-width: 480px;
+    width: 90%;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+}
+
+.modal-title
+{
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 12px 0;
+}
+
+.modal-question
+{
+    font-size: 15px;
+    color: #444;
+    margin: 0 0 20px 0;
+    line-height: 1.5;
+}
+
+.modal-textarea
+{
+    width: 100%;
+    min-height: 100px;
+    padding: 12px 14px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    resize: vertical;
+    outline: none;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.15s;
+}
+
+.modal-textarea:focus { border-color: #007AFF; }
+
+.modal-submit-btn
+{
+    width: 100%;
+    background: #007AFF;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: opacity 0.15s;
+}
+
+.modal-submit-btn:hover { opacity: 0.85; }

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Vinci — Sign In</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../static/css/login.css">
+    </head>
+    <body>
+        <div class="login-container">
+            <div class="login-card">
+                <div class="login-brand">Vinci</div>
+                <p class="login-tagline">A Socratic Python tutor</p>
+                <form method="POST" action="/login">
+                    <label class="login-label" for="name">What's your name?</label>
+                    <input class="login-input" type="text" id="name" name="name" placeholder="e.g. Alex" autocomplete="off" required>
+                    <button class="login-btn" type="submit">Start Learning →</button>
+                </form>
+            </div>
+            <p class="login-footer">Built by <a href="https://www.allankangethe.com" target="_blank">Allan Kangethe</a></p>
+        </div>
+    </body>
+</html>

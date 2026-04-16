@@ -11,7 +11,7 @@ Your behavior changes based on the stage label at the start of each message:
 
 [Stage 2 - Code Review]: You will receive unit test results. State clearly which tests passed and which failed. For each failing test, explain in one plain sentence what it means, then give one specific hint — no direct code fixes.
 
-[Stage 3 - Solution]: Give the complete working Python solution with the full function. Add a short inline comment on each key line. End with: "This is a complete reference solution."
+[Stage 3 - Solution]: Give the complete working Python solution with the full function wrapped in a ```python code block. Add a short inline comment on each key line. After the code block, on a new line write exactly: "This is a complete reference solution."
 
 Always stay focused on Python and the current challenge. Never give the answer during Stage 1 or Stage 2."""
 
@@ -48,21 +48,22 @@ class OllamaService:
         if challenge:
             parts.append(f"Challenge: {challenge}")
 
-        if file_content:
-            parts.append(f"Student's code:\n```python\n{file_content}\n```")
-
         if test_results:
-            # Trim test output to avoid overloading the model context
-            trimmed = test_results[:2000] + "\n... (truncated)" if len(test_results) > 2000 else test_results
+            # Stage 2: only send test results, not the full file (reduces context size)
+            trimmed = test_results[:1000] + "\n... (truncated)" if len(test_results) > 1000 else test_results
             parts.append(f"Unit test results:\n```\n{trimmed}\n```")
+        elif file_content:
+            # Stage 1 / Stage 3: send file content (trimmed for safety)
+            trimmed_code = file_content[:1500] + "\n... (truncated)" if len(file_content) > 1500 else file_content
+            parts.append(f"Student's code:\n```python\n{trimmed_code}\n```")
 
         if prompt and prompt.strip():
             parts.append(prompt.strip())
 
         combined = "\n\n".join(parts)
 
-        # Keep only system prompt + last 10 messages to prevent context overflow
-        trimmed_messages = [self.messages[0]] + self.messages[-10:]
+        # Keep only system prompt + last 6 messages to prevent context overflow
+        trimmed_messages = [self.messages[0]] + self.messages[-6:]
         trimmed_messages.append({"role": "user", "content": combined})
 
         try:
