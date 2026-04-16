@@ -89,3 +89,10 @@ body {
     color: #007AFF;
     text-decoration: none;
 }
+
+@media (max-width: 768px) {
+    .login-card {
+        width: calc(100% - 40px);
+        padding: 36px 24px;
+    }
+}
