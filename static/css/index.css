@@ -5,6 +5,44 @@ body
     padding-bottom: 160px;
 }
 
+.top-nav
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 32px;
+    border-bottom: 1px solid #ebebeb;
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 100;
+}
+
+.nav-brand
+{
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -0.3px;
+}
+
+.nav-portfolio-btn
+{
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    color: #007AFF;
+    border: 1px solid #007AFF;
+    padding: 6px 14px;
+    border-radius: 20px;
+    transition: background 0.15s, color 0.15s;
+}
+
+.nav-portfolio-btn:hover
+{
+    background: #007AFF;
+    color: white;
+}
+
 .prompt-bar-container
 {
     display: flex;
