@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>test</title>
+        <title>Vinci</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="../static/css/index.css">
     </head>
     <body>
 
 
-        
             <div class="challenges" id="challenges">
                 <p class="challenge-title">Pick a challenge</p>
                 <p class="challenge-subtitle">Choose a coding challenge to practice your skills.</p>
@@ -16,8 +18,19 @@
                 </div>
             </div> 
 
+            <div class="chat-header" id="chat-header">
+                <div class="stage-track">
+                    <div class="stage-pill active" id="stage-pill-1">1 · Socratic</div>
+                    <div class="stage-arrow">→</div>
+                    <div class="stage-pill" id="stage-pill-2">2 · Code Review</div>
+                    <div class="stage-arrow">→</div>
+                    <div class="stage-pill" id="stage-pill-3">3 · Solution</div>
+                </div>
+                <button class="next-stage-btn" id="next-stage-btn">Move to Code Review →</button>
+            </div>
+
             <div class="chat-container" id="chat-container">
-                
+
             </div>
 
             <div class="prompt-bar-container" id="prompt-bar-container">
@@ -33,6 +46,8 @@
                     <button class="prompt-send-button" id="sendButton">
                         <img class="prompt-send-icon" src="../static/img/send.png">
                     </button>
+
+            
                 </div>
                 
             </div>
@@ -51,6 +66,7 @@
         </div>
          -->
 
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
         <script src="../static/scripts/index.js"></script>
    
 

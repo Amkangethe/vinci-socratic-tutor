@@ -59,21 +59,53 @@ challanges.innerHTML = challangesHTML;
 const promptBarContainer = document.getElementById('prompt-bar-container');
 const challenges = document.getElementById('challenges');
 const tempChatContainer = document.getElementById('chat-container');
-
+const chatHeader = document.getElementById('chat-header');
+const nextStageBtn = document.getElementById('next-stage-btn');
 
 promptBarContainer.style.display = 'none';
 tempChatContainer.style.display = 'none';
+chatHeader.style.display = 'none';
 
+let currentStage = 1;
+
+function updateStageUI() {
+    [1, 2, 3].forEach(n => {
+        const pill = document.getElementById(`stage-pill-${n}`);
+        pill.classList.toggle('active', n === currentStage);
+        pill.classList.toggle('completed', n < currentStage);
+    });
+
+    if (currentStage === 2) {
+        nextStageBtn.textContent = 'Get Solution →';
+    }
+    nextStageBtn.style.display = currentStage === 3 ? 'none' : '';
+}
+
+nextStageBtn.addEventListener('click', () => {
+    currentStage++;
+    updateStageUI();
+
+    if (currentStage === 3) {
+        sendMessage("Give me the complete solution.");
+    }
+});
 
 const buttons = document.querySelectorAll('.challenge-button');
 // Get choice
 buttons.forEach((button) => {
-    button.addEventListener('click', async function(event)  {
+    button.addEventListener('click', async function(event) {
         promptBarContainer.style.display = '';
         tempChatContainer.style.display = '';
+        chatHeader.style.display = '';
         challenges.style.display = 'none';
 
+        currentStage = 1;
+        updateStageUI();
+        hasUploadedAttempt = false;
+
         challengeChosen = event.currentTarget.dataset.name;
+
+        fetch("/reset", { method: "POST" });
     });
 });
 
@@ -84,7 +116,14 @@ const promptBar = document.getElementById("promptTextArea"); // textarea element
 promptBar.addEventListener("input", function () {
     promptBar.style.height = "auto";  // first reset the height
     promptBar.style.height = promptBar.scrollHeight + "px"; //set the height equal to however tall the content needs to be
-    
+    updateSendButton();
+});
+
+promptBar.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        sendBtn.click();
+    }
 });
 //------------------------------------------------------------------------------------------------------------------------------------------------
 // upload button 
@@ -111,42 +150,90 @@ fileInput.addEventListener('change', (event) => {
 });
 
 
-const sendBtn = document.getElementById('sendButton'); // send button 
+const sendBtn = document.getElementById('sendButton'); // send button
 
 let hasUploadedAttempt = false;
+let isAiTyping = false;
 
-sendBtn.addEventListener('click', async function () {
-    const chatContainer = document.getElementById('chat-container');
+function updateSendButton() {
+    const hasText = promptBar.value.trim().length > 0;
+    sendBtn.style.display = (hasText && !isAiTyping) ? '' : 'none';
+}
+
+updateSendButton(); // hidden on load since textarea is empty
+
+sendBtn.addEventListener('click', () => {
     const userPrompt = promptBar.value;
+    if (!userPrompt.trim()) return;
+
+    if (fileInput.files.length > 0) {
+        hasUploadedAttempt = true;
+    }
+
+    if (!hasUploadedAttempt) {
+        alert('PLEASE ENTER A PYTHON FILE TO BEGIN');
+        return;
+    }
+
+    sendMessage(userPrompt);
+});
+
+async function sendMessage(userPrompt) {
+    const chatContainer = document.getElementById('chat-container');
 
     const formData = new FormData();
     formData.append("prompt", userPrompt);
     formData.append("choice", challengeChosen);
+    formData.append("stage", currentStage);
 
     if (fileInput.files.length > 0) {
         formData.append("file", fileInput.files[0]);
         hasUploadedAttempt = true;
     }
 
-    if (hasUploadedAttempt == false) {
-        alert('PLEASE ENTER A PYTHON FILE TO BEGIN');
-        return;
-    }
+    const attachedFileName = fileInput.files.length > 0 ? fileInput.files[0].name : null;
 
+    // Build user bubble
     const dialogueCard = document.createElement("div");
     dialogueCard.className = "dialogue-card";
 
     const userPromptDiv = document.createElement("div");
     userPromptDiv.className = "user-prompt";
-    userPromptDiv.textContent = userPrompt;
+
+    if (attachedFileName) {
+        const fileTag = document.createElement("div");
+        fileTag.className = "chat-file-tag";
+        fileTag.innerHTML = `<img class="added-file-icon" src="../static/img/code.png"><span>${attachedFileName}</span>`;
+        userPromptDiv.appendChild(fileTag);
+    }
+
+    const stageBadge = document.createElement("div");
+    stageBadge.className = "chat-stage-badge";
+    stageBadge.textContent = `Stage ${currentStage}`;
+    userPromptDiv.appendChild(stageBadge);
+
+    const userText = document.createElement("span");
+    userText.textContent = userPrompt;
+    userPromptDiv.appendChild(userText);
 
     const aiResponseDiv = document.createElement("div");
     aiResponseDiv.className = "ai-response";
-    aiResponseDiv.textContent = "Thinking...";
+    aiResponseDiv.innerHTML = `Thinking<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>`;
 
     dialogueCard.appendChild(userPromptDiv);
     dialogueCard.appendChild(aiResponseDiv);
     chatContainer.appendChild(dialogueCard);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+
+    isAiTyping = true;
+    updateSendButton();
+
+    // Clear inputs immediately
+    promptBar.value = '';
+    promptBar.style.height = "auto";
+    fileInput.value = '';
+    addedFile.style.display = 'none';
+    updateSendButton();
 
     try {
         const response = await fetch("/analyze", {
@@ -156,14 +243,17 @@ sendBtn.addEventListener('click', async function () {
 
         const data = await response.json();
 
-        
-
-        streamline_text(aiResponseDiv, data.feedback);
+        streamline_text(aiResponseDiv, data.feedback, 0, () => {
+            isAiTyping = false;
+            updateSendButton();
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        });
 
         chatHistory.push({
             role: "user",
             content: userPrompt,
-            fileName: fileInput.files[0]?.name || 'NO-FILE',
+            stage: currentStage,
+            fileName: attachedFileName || 'NO-FILE',
             challenge: challengeChosen,
             timestamp: Date.now()
         });
@@ -171,23 +261,19 @@ sendBtn.addEventListener('click', async function () {
         chatHistory.push({
             role: "assistant",
             content: data.feedback,
+            stage: currentStage,
             timestamp: Date.now()
         });
-
- 
-
-        promptBar.value = '';
-        promptBar.style.height = "auto";
-        fileInput.value = '';
-        addedFile.style.display = 'none';
 
     } catch (error) {
         aiResponseDiv.textContent = "Something went wrong.";
         console.error("Error:", error);
+        isAiTyping = false;
+        updateSendButton();
     }
-});
+}
 
-function streamline_text(element, text, i = 0)
+function streamline_text(element, text, i = 0, onComplete = null)
 {
     if(i == 0)
     {
@@ -196,14 +282,14 @@ function streamline_text(element, text, i = 0)
 
     element.textContent += text[i];
 
-    if(i=== text.length - 1)
+    if(i === text.length - 1)
     {
+        element.innerHTML = marked.parse(text);
+        if (onComplete) onComplete();
         return;
     }
 
-    setTimeout(() => streamline_text(element, text, i+1), 20);
-
-
+    setTimeout(() => streamline_text(element, text, i+1, onComplete), 20);
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------
