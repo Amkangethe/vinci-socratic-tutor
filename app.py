@@ -166,4 +166,5 @@ def log_session():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5555)
+    debug = os.getenv('FLASK_DEBUG', 'false').lower() == 'true'
+    app.run(debug=debug, port=5555)

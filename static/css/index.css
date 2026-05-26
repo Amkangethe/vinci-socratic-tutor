@@ -404,11 +404,12 @@ body
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     border-radius: 39px;
     max-width: 400px;
-
     overflow-wrap: break-word;
     word-wrap: break-word;
     word-break: break-word;
 }
+
+.ai-response { max-width: 640px; }
 
 .ai-response
 {
@@ -427,15 +428,18 @@ body
     font-size: 14px;
 }
 .ai-response pre {
-    background-color: rgba(255,255,255,0.08);
-    padding: 12px;
+    background-color: rgba(255,255,255,0.08) !important;
+    padding: 12px !important;
     border-radius: 8px;
     overflow-x: auto;
+    margin: 8px 0;
 }
 .ai-response pre code {
-    background: none;
-    padding: 0;
+    background: none !important;
+    padding: 0 !important;
+    font-size: 13px;
 }
+.ai-response .hljs { background: transparent !important; }
 
 @keyframes blink {
     0%, 100% { opacity: 0; }
@@ -814,6 +818,7 @@ body
         padding: 14px 16px;
         border-radius: 22px;
     }
+    .ai-response { max-width: 88vw; }
 
     /* Prompt bar */
     .prompt-bar-container {

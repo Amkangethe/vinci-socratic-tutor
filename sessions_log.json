@@ -9,5 +9,27 @@
     "time_stage2_seconds": 0,
     "time_stage3_seconds": 11,
     "completed_at": "2026-04-16T12:19:32.892489"
+  },
+  {
+    "username": "john",
+    "challenge": "count_vowels",
+    "pre_check_answer": "",
+    "hints_received": 1,
+    "tests_failed": 0,
+    "time_stage1_seconds": 15,
+    "time_stage2_seconds": 1,
+    "time_stage3_seconds": 4,
+    "completed_at": "2026-05-26T02:44:53.931819"
+  },
+  {
+    "username": "john",
+    "challenge": "count_vowels",
+    "pre_check_answer": "",
+    "hints_received": 1,
+    "tests_failed": 0,
+    "time_stage1_seconds": 30,
+    "time_stage2_seconds": 0,
+    "time_stage3_seconds": 4,
+    "completed_at": "2026-05-26T02:53:37.327327"
   }
 ]

@@ -64,7 +64,7 @@ function markCompleted(key) {
 
 //------------------------------------------------------------------------------------------------------------------------------------------------
 // Build challenge cards
-const challanges = document.getElementById('challenge-container');
+const challenges_container = document.getElementById('challenge-container');
 
 let challengeChosen = '';
 let chatHistory = [];
@@ -93,7 +93,7 @@ function buildCards() {
             </div>
         </div>`;
     });
-    challanges.innerHTML = html;
+    challenges_container.innerHTML = html;
     attachChallengeListeners();
 }
 
@@ -255,6 +255,12 @@ addedFile.style.display = 'none';
 
 fileInput.addEventListener('change', (event) => {
     const file = event.target.files;
+    if (!file.length) return;
+    if (file[0].size > 100 * 1024) {
+        showToast('File too large. Please keep it under 100 KB.');
+        fileInput.value = '';
+        return;
+    }
     addedFile.style.display = '';
     addedFile.innerHTML = `
         <img class="added-file-icon" src="../static/img/code.png">
@@ -428,16 +434,19 @@ function showSummary() {
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------
-// Typewriter
+// Typewriter — 3 chars per tick at 15ms (~6x faster than 1 char/20ms)
 function streamline_text(element, text, i = 0, onComplete = null) {
-    if (i == 0) element.textContent = "";
-    element.textContent += text[i];
+    if (i === 0) element.textContent = "";
 
-    if (i === text.length - 1) {
+    const end = Math.min(i + 3, text.length);
+    element.textContent += text.slice(i, end);
+
+    if (end >= text.length) {
         element.innerHTML = marked.parse(text);
+        element.querySelectorAll('pre code').forEach(block => hljs.highlightElement(block));
         if (onComplete) onComplete();
         return;
     }
 
-    setTimeout(() => streamline_text(element, text, i + 1, onComplete), 20);
+    setTimeout(() => streamline_text(element, text, end, onComplete), 15);
 }
